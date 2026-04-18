@@ -41,14 +41,20 @@ const getDashboard = async (req, res) => {
     const [rows] = await db.query(
       `SELECT r.id, r.name, r.status,
               t.name AS tenant_name,
-              mr.month, mr.old_electric, mr.new_electric, mr.electric_price,
+              mr.month, mr.day,
+              mr.old_electric, mr.new_electric, mr.electric_price,
               mr.old_water, mr.new_water, mr.water_price
        FROM rooms r
        LEFT JOIN tenants t ON t.room_id = r.id
-       LEFT JOIN monthly_records mr ON mr.room_id = r.id AND mr.month = ?
+       LEFT JOIN (
+         SELECT * FROM monthly_records mr0 WHERE (mr0.month, mr0.day) = (
+           SELECT month, day FROM monthly_records mr1 WHERE mr1.room_id = mr0.room_id 
+           ORDER BY month DESC, day DESC LIMIT 1
+         )
+       ) mr ON mr.room_id = r.id
        ORDER BY r.id ASC`,
-      [currentMonth],
     );
+    // console.log(rows);
 
     const enriched = rows.map((r) => {
       const electricUsage =

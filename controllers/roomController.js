@@ -9,6 +9,8 @@ const getRooms = async (req, res) => {
       LEFT JOIN tenants t ON t.room_id = r.id
       ORDER BY r.id ASC
     `);
+    // console.log(rows);
+    
     res.json({ success: true, data: rows });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });

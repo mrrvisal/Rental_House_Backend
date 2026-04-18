@@ -19,6 +19,7 @@ const protectedRouter = express.Router();
 protectedRouter.use("/rooms", require("./routes/rooms"));
 protectedRouter.use("/tenants", require("./routes/tenants"));
 protectedRouter.use("/records", require("./routes/records"));
+protectedRouter.use("/invoices", require("./routes/invoices"));
 app.use("/api/admin", protectedRouter);
 
 // Health check
@@ -40,4 +41,3 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
-
