@@ -14,7 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 const adminRoutes = require("./routes/admin");
 app.use("/admin", adminRoutes);
-
 const protectedRouter = express.Router();
 protectedRouter.use("/rooms", require("./routes/rooms"));
 protectedRouter.use("/tenants", require("./routes/tenants"));
