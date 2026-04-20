@@ -35,5 +35,4 @@ coverage/
 # OS
 .DS_Store
 Thumbs.db
-
 firebase-key.json
