@@ -5,7 +5,7 @@ if (process.env.FIREBASE_SERVICE_ACCOUNT) {
     Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT, "base64").toString(),
   );
 } else {
-  const keyPath = process.env.FIREBASE_KEY_PATH || "../firebase-key.json";
+  const keyPath = process.env.FIREBASE_KEY_PATH || "./firebase-key.json";
   serviceAccount = require(keyPath);
   if (process.env.NODE_ENV !== "development") {
     console.warn("⚠️  Using local Firebase key in production - insecure!");

@@ -2,7 +2,7 @@
 FROM node:20-alpine
 
 # Install dumb-init for proper signal handling
-RUN apk add --no-cache dumb-init
+RUN apk add --no-cache dumb-init wget ca-certificates
 
 WORKDIR /app
 
@@ -16,6 +16,7 @@ RUN npm ci --only=production && npm cache clean --force
 COPY . .
 
 # Create uploads directory
+RUN mkdir -p /etc/ssl && ln -sf /etc/ssl/certs/ca-certificates.crt /etc/ssl/cert.pem
 RUN mkdir -p uploads && chmod 755 uploads
 
 # Expose port (matches frontend expectation)
